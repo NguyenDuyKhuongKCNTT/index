@@ -1,0 +1,258 @@
+:root {
+  --bg1: #180828;
+  --bg2: #3a0b59;
+  --pink: #ff4fa3;
+  --hot-pink: #ff1f86;
+  --gold: #ffd166;
+  --cyan: #67e8f9;
+  --white: #fff7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: var(--white);
+  background:
+    radial-gradient(circle at top left, rgba(255, 79, 163, 0.35), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(103, 232, 249, 0.25), transparent 35%),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+  animation: bgShift 10s ease-in-out infinite alternate;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 2;
+}
+
+.birthday-card {
+  width: min(720px, 92vw);
+  padding: 32px 28px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 30px rgba(255, 79, 163, 0.35),
+    0 0 80px rgba(103, 232, 249, 0.15),
+    inset 0 0 25px rgba(255, 255, 255, 0.08);
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+.eyebrow {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+  color: #ffe6f3;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: 1.1;
+  font-family: "Pacifico", cursive;
+  color: #fff;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.8),
+    0 0 18px rgba(255, 79, 163, 0.9),
+    0 0 42px rgba(255, 31, 134, 0.55);
+}
+
+.message {
+  margin: 18px auto 22px;
+  max-width: 620px;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: rgba(255, 247, 251, 0.95);
+}
+
+.message span {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.badges span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 79, 163, 0.35), rgba(103, 232, 249, 0.22));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 12px rgba(255, 79, 163, 0.2);
+  font-size: 0.94rem;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--hot-pink), #ff77b7, #ffb703);
+  box-shadow: 0 12px 25px rgba(255, 31, 134, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 30px rgba(255, 31, 134, 0.45);
+}
+
+.bg-glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.45;
+  z-index: 0;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.glow-1 {
+  top: -60px;
+  left: -30px;
+  background: rgba(255, 79, 163, 0.55);
+}
+
+.glow-2 {
+  right: -40px;
+  bottom: -50px;
+  background: rgba(103, 232, 249, 0.4);
+}
+
+.stars,
+.heart-rain {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.star,
+.heart {
+  position: absolute;
+  user-select: none;
+}
+
+.star {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  animation: twinkle linear infinite;
+}
+
+.heart {
+  font-size: 18px;
+  animation: fall linear forwards;
+  filter: drop-shadow(0 0 10px rgba(255, 79, 163, 0.7));
+}
+
+.burst {
+  animation: burst 1.8s ease-out forwards;
+}
+
+@keyframes bgShift {
+  from {
+    filter: saturate(1) brightness(1);
+  }
+  to {
+    filter: saturate(1.15) brightness(1.08);
+  }
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(var(--drift, 0px)) rotate(360deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(1.6);
+  }
+}
+
+@media (max-width: 640px) {
+  .birthday-card {
+    padding: 26px 18px;
+  }
+
+  .message {
+    font-size: 0.98rem;
+  }
+
+  .badges span {
+    font-size: 0.84rem;
+  }
+}
