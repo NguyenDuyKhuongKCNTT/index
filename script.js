@@ -9,8 +9,12 @@ const revealText = document.getElementById('revealText');
 const closeReveal = document.getElementById('closeReveal');
 const sparkleLayer = document.getElementById('sparkleLayer');
 const defaultRevealImage = 'img/HPBD.png';
+const isMobileView = () => window.matchMedia('(max-width: 768px)').matches;
+let heartIntervalId = null;
 
-function createStars(count = 45) {
+function createStars(count = isMobileView() ? 24 : 45) {
+  stars.innerHTML = '';
+
   for (let i = 0; i < count; i++) {
     const star = document.createElement('span');
     star.className = 'star';
@@ -45,12 +49,18 @@ function dropHeart(isBurst = false, x = Math.random() * window.innerWidth, y = -
   setTimeout(() => heart.remove(), isBurst ? 1800 : 8000);
 }
 
-function heartShower(amount = 24, x = window.innerWidth / 2, y = window.innerHeight / 2) {
+function heartShower(amount = isMobileView() ? 14 : 24, x = window.innerWidth / 2, y = window.innerHeight / 2) {
   for (let i = 0; i < amount; i++) {
     setTimeout(() => {
       dropHeart(true, x, y);
     }, i * 60);
   }
+}
+
+function setupAmbientHearts() {
+  clearInterval(heartIntervalId);
+  const delay = isMobileView() ? 850 : 320;
+  heartIntervalId = window.setInterval(() => dropHeart(false), delay);
 }
 
 function preloadRevealImage(src) {
@@ -64,8 +74,9 @@ function preloadRevealImage(src) {
 
 function spawnRevealSparkles() {
   sparkleLayer.innerHTML = '';
+  const sparkleCount = isMobileView() ? 8 : 14;
 
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < sparkleCount; i++) {
     const sparkle = document.createElement('span');
     sparkle.className = 'sparkle';
     sparkle.style.left = `${8 + Math.random() * 84}%`;
@@ -101,10 +112,10 @@ function closeRevealModal() {
   sparkleLayer.innerHTML = '';
 }
 
-setInterval(() => dropHeart(false), 320);
+setupAmbientHearts();
 
 celebrateBtn.addEventListener('click', () => {
-  heartShower(30, window.innerWidth / 2, window.innerHeight / 2);
+  heartShower(isMobileView() ? 18 : 30, window.innerWidth / 2, window.innerHeight / 2);
 });
 
 surpriseBtns.forEach((button) => {
@@ -126,10 +137,26 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('click', (event) => {
-  for (let i = 0; i < 8; i++) {
+  const burstAmount = isMobileView() ? 4 : 8;
+
+  for (let i = 0; i < burstAmount; i++) {
     setTimeout(() => dropHeart(true, event.clientX, event.clientY), i * 30);
   }
 });
 
+window.addEventListener('resize', () => {
+  createStars();
+  setupAmbientHearts();
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    clearInterval(heartIntervalId);
+    return;
+  }
+
+  setupAmbientHearts();
+});
+
 createStars();
-heartShower(18);
+heartShower(isMobileView() ? 10 : 18);

@@ -15,7 +15,10 @@
 body {
   margin: 0;
   min-height: 100vh;
-  overflow: hidden;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-tap-highlight-color: transparent;
   font-family: "Be Vietnam Pro", sans-serif;
   color: var(--white);
   background:
@@ -28,14 +31,15 @@ body {
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 24px 16px 32px;
   z-index: 2;
 }
 
 .birthday-card {
-  width: min(860px, 94vw);
+  width: min(860px, 100%);
   padding: 32px 28px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -112,10 +116,12 @@ button {
   border: none;
   border-radius: 999px;
   padding: 14px 24px;
+  max-width: 100%;
   font-size: 1rem;
   font-weight: 700;
   color: white;
   cursor: pointer;
+  touch-action: manipulation;
   background: linear-gradient(135deg, var(--hot-pink), #ff77b7, #ffb703);
   box-shadow: 0 12px 25px rgba(255, 31, 134, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -218,6 +224,7 @@ button:hover {
   display: grid;
   place-items: center;
   padding: 18px;
+  overflow-y: auto;
   background: rgba(10, 5, 18, 0.72);
   backdrop-filter: blur(10px);
   opacity: 0;
@@ -235,9 +242,10 @@ button:hover {
 .reveal-box {
   position: relative;
   width: min(900px, 96vw);
+  max-height: min(92dvh, 760px);
   padding: 20px;
   border-radius: 26px;
-  overflow: hidden;
+  overflow: auto;
   background: linear-gradient(160deg, rgba(25, 12, 39, 0.96), rgba(67, 15, 85, 0.92));
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow:
@@ -575,24 +583,90 @@ button:hover {
 }
 
 @media (max-width: 640px) {
+  .hero {
+    place-items: start center;
+    padding: 16px 12px 24px;
+  }
+
   .birthday-card {
-    padding: 26px 18px;
+    padding: 22px 14px;
+    border-radius: 22px;
+    animation: none;
   }
 
   .message,
   .panel-text {
-    font-size: 0.98rem;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .badges {
+    gap: 8px;
   }
 
   .badges span {
+    width: 100%;
     font-size: 0.84rem;
   }
 
+  .actions button,
   .surprise-btn {
     width: 100%;
+    padding: 13px 16px;
+  }
+
+  .image-reveal {
+    padding: 10px;
+  }
+
+  .reveal-box {
+    padding: 16px 12px 12px;
+    border-radius: 20px;
+  }
+
+  .close-reveal {
+    top: 8px;
+    right: 8px;
+    width: 38px;
+    height: 38px;
   }
 
   .door-stage {
-    min-height: 240px;
+    min-height: 220px;
+    height: clamp(220px, 62vw, 320px);
+    border-radius: 18px;
+  }
+
+  .reveal-photo {
+    padding: 10px;
+  }
+
+  .door::after {
+    inset: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  h1 {
+    font-size: clamp(2rem, 10vw, 2.6rem);
+  }
+
+  .eyebrow {
+    font-size: 0.76rem;
+  }
+
+  .panel-title {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
