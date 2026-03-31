@@ -33,8 +33,63 @@
       <div class="actions">
         <button id="celebrateBtn">Bấm để nhận mưa tim 💘</button>
       </div>
+
+      <div class="surprise-panel">
+        <p class="panel-title">✨ Hộp quà tương tác</p>
+        <p class="panel-text">
+          Bấm vào từng nút bên dưới để mở ra một khung ảnh với hiệu ứng
+          <span>như hai cánh cửa đang hé mở</span>.
+        </p>
+
+        <div class="surprise-buttons">
+          <button
+            class="surprise-btn"
+            data-scene="cake"
+            data-title="Chiếc bánh ngọt ngào"
+            data-text="Một chiếc bánh lung linh mở ra như món quà nhỏ cho ngày đặc biệt."
+          >
+            Mở ảnh 1 🎂
+          </button>
+          <button
+            class="surprise-btn"
+            data-scene="gift"
+            data-title="Hộp quà yêu thương"
+            data-text="Nhẹ nhàng, ấm áp và đầy màu sắc — đúng chất bất ngờ sinh nhật."
+          >
+            Mở ảnh 2 🎁
+          </button>
+          <button
+            class="surprise-btn"
+            data-scene="night"
+            data-title="Bầu trời điều ước"
+            data-text="Một khung trời lấp lánh để gửi thêm thật nhiều điều ước đẹp."
+          >
+            Mở ảnh 3 ✨
+          </button>
+        </div>
+      </div>
     </section>
   </main>
+
+  <div class="image-reveal" id="imageReveal" aria-hidden="true">
+    <div class="reveal-box">
+      <button class="close-reveal" id="closeReveal" aria-label="Đóng khung ảnh">×</button>
+
+      <div class="reveal-header">
+        <h2 id="revealTitle">Khoảnh khắc bất ngờ</h2>
+        <p id="revealText">
+          Mỗi lần bấm sẽ mở ra một khung ảnh theo hiệu ứng cánh cửa.
+        </p>
+      </div>
+
+      <div class="door-stage">
+        <img id="revealImage" class="reveal-photo" alt="Ảnh bất ngờ" />
+        <div class="door door-left"></div>
+        <div class="door door-right"></div>
+        <div class="center-glow"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
